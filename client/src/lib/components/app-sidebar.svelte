@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { LayoutDashboard, Users, FolderOpen, MessageSquare, Receipt, Settings } from '@lucide/svelte';
-  import { sidebarCollapsed } from '$lib/stores/sidebar';
+  import { LayoutDashboard, Users, FolderOpen, MessageSquare, Receipt, Settings, PanelLeftClose, PanelLeftOpen } from '@lucide/svelte';
+  import { sidebarCollapsed, toggleSidebar } from '$lib/stores/sidebar';
 
   let { currentPath = '/' } = $props();
 
@@ -23,12 +23,19 @@
 
 <aside class="sidebar" class:collapsed>
   <div class="sidebar-brand">
-    <div class="brand-icon">V</div>
-    {#if !collapsed}
+    {#if collapsed}
+      <button onclick={toggleSidebar} class="toggle-btn" title="Expand sidebar">
+        <PanelLeftOpen class="size-5" />
+      </button>
+    {:else}
+      <div class="brand-icon">V</div>
       <div class="brand-text">
         <span class="brand-name">Ven-Manager</span>
         <span class="brand-label">Admin Workspace</span>
       </div>
+      <button onclick={toggleSidebar} class="toggle-btn toggle-btn-side" title="Collapse sidebar">
+        <PanelLeftClose class="size-5" />
+      </button>
     {/if}
   </div>
 
@@ -115,6 +122,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    flex: 1;
   }
 
   .brand-name {
@@ -130,6 +138,30 @@
     color: rgba(245, 243, 238, 0.35);
     letter-spacing: 0.04em;
     white-space: nowrap;
+  }
+
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: rgba(245, 243, 238, 0.55);
+    cursor: pointer;
+    transition: all 0.18s ease-out;
+    flex-shrink: 0;
+  }
+
+  .toggle-btn:hover {
+    background: rgba(200, 168, 90, 0.15);
+    color: var(--v-gold);
+  }
+
+  .toggle-btn-side {
+    margin-left: auto;
   }
 
   .sidebar-nav {
@@ -188,6 +220,12 @@
 
   .nav-item.active .nav-dot {
     opacity: 1;
+  }
+
+  .nav-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 
   .nav-label {
