@@ -127,6 +127,7 @@
 
   .brand-name {
     font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
     font-size: 13px;
     color: var(--v-surface);
     white-space: nowrap;
@@ -271,6 +272,7 @@
 
   .user-name {
     font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
     font-size: 13px;
     color: var(--v-surface);
     white-space: nowrap;
