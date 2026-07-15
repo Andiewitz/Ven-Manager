@@ -12,7 +12,7 @@
   ];
 </script>
 
-<Sidebar.Root>
+<Sidebar.Root collapsible="icon">
   <Sidebar.Header>
     <Sidebar.Menu>
       <Sidebar.MenuItem>
