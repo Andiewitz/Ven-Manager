@@ -9,6 +9,10 @@
 | TypeScript | ^6.0.3 | Type safety |
 | Sass | ^1.101.0 | CSS preprocessing |
 | Vite | ^8.0.16 | Build tooling |
+| Tailwind CSS | ^4.0.0 | Utility-first CSS |
+| shadcn-svelte | ^1.4.2 | UI component library |
+| Bits UI | - | Accessible primitives |
+| Lucide | - | Icons |
 
 ## Server (`/server`)
 
@@ -36,3 +40,6 @@
 - **Testing**: Vitest (unit + integration)
 - **CI/CD**: lint → test → build pipeline
 - **Type Checking**: TypeScript strict mode (server)
+- **UI Components**: shadcn-svelte (Sidebar, Card, Button, Tooltip, etc.)
+- **Icons**: Lucide Svelte
+- **Styling**: Tailwind CSS 4 with shadcn-svelte CSS variables
