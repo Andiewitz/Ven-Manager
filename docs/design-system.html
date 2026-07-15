@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ven-Manager Design System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --radius: 0.625rem;
+      --background: oklch(1 0 0);
+      --foreground: oklch(0.145 0 0);
+      --card: oklch(1 0 0);
+      --card-foreground: oklch(0.145 0 0);
+      --popover: oklch(1 0 0);
+      --popover-foreground: oklch(0.145 0 0);
+      --primary: oklch(0.205 0 0);
+      --primary-foreground: oklch(0.985 0 0);
+      --secondary: oklch(0.97 0 0);
+      --secondary-foreground: oklch(0.205 0 0);
+      --muted: oklch(0.97 0 0);
+      --muted-foreground: oklch(0.556 0 0);
+      --accent: oklch(0.97 0 0);
+      --accent-foreground: oklch(0.205 0 0);
+      --destructive: oklch(0.577 0.245 27.325);
+      --border: oklch(0.922 0 0);
+      --input: oklch(0.922 0 0);
+      --ring: oklch(0.708 0 0);
+      --sidebar: oklch(0.985 0 0);
+      --sidebar-foreground: oklch(0.145 0 0);
+    }
+
+    .dark {
+      --background: oklch(0.145 0 0);
+      --foreground: oklch(0.985 0 0);
+      --card: oklch(0.145 0 0);
+      --card-foreground: oklch(0.985 0 0);
+      --popover: oklch(0.145 0 0);
+      --popover-foreground: oklch(0.985 0 0);
+      --primary: oklch(0.985 0 0);
+      --primary-foreground: oklch(0.205 0 0);
+      --secondary: oklch(0.269 0 0);
+      --secondary-foreground: oklch(0.985 0 0);
+      --muted: oklch(0.269 0 0);
+      --muted-foreground: oklch(0.708 0 0);
+      --accent: oklch(0.269 0 0);
+      --accent-foreground: oklch(0.985 0 0);
+      --destructive: oklch(0.577 0.245 27.325);
+      --border: oklch(0.269 0 0);
+      --input: oklch(0.269 0 0);
+      --ring: oklch(0.439 0 0);
+      --sidebar: oklch(0.205 0 0);
+      --sidebar-foreground: oklch(0.985 0 0);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .section { margin-bottom: 3rem; }
+    .section-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .subsection { margin-bottom: 1.5rem; }
+    .subsection-title { font-size: 1.125rem; font-weight: 500; margin-bottom: 0.75rem; }
+
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    .color-swatch { border-radius: var(--radius); padding: 1rem; min-height: 80px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .color-name { font-weight: 500; font-size: 0.875rem; }
+    .color-value { font-size: 0.75rem; opacity: 0.8; }
+
+    .component-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .component-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .component-title { font-weight: 600; margin-bottom: 0.5rem; }
+    .component-desc { color: var(--muted-foreground); font-size: 0.875rem; margin-bottom: 1rem; }
+
+    .btn { padding: 0.5rem 1rem; border-radius: var(--radius); font-weight: 500; cursor: pointer; border: none; font-size: 0.875rem; }
+    .btn-primary { background: var(--primary); color: var(--primary-foreground); }
+    .btn-secondary { background: var(--secondary); color: var(--secondary-foreground); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--foreground); }
+    .btn-destructive { background: var(--destructive); color: white; }
+
+    .badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; display: inline-block; }
+    .badge-default { background: var(--primary); color: var(--primary-foreground); }
+    .badge-secondary { background: var(--secondary); color: var(--secondary-foreground); }
+    .badge-outline { border: 1px solid var(--border); color: var(--foreground); }
+    .badge-destructive { background: var(--destructive); color: white; }
+
+    .card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .card-header { margin-bottom: 1rem; }
+    .card-title { font-weight: 600; font-size: 1.125rem; }
+    .card-desc { color: var(--muted-foreground); font-size: 0.875rem; }
+    .card-content { }
+    .card-footer { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+    .input { padding: 0.5rem 0.75rem; border: 1px solid var(--input); border-radius: var(--radius); background: var(--background); color: var(--foreground); font-size: 0.875rem; width: 100%; box-sizing: border-box; }
+    .input:focus { outline: none; box-shadow: 0 0 0 2px var(--ring); }
+
+    .avatar { width: 2.5rem; height: 2.5rem; border-radius: 9999px; background: var(--muted); display: flex; align-items: center; justify-content: center; font-weight: 500; }
+
+    .spacing-demo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .spacing-bar { background: var(--primary); height: 1rem; border-radius: 2px; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--border); }
+    th { font-weight: 500; color: var(--muted-foreground); font-size: 0.875rem; }
+
+    .theme-toggle { position: fixed; top: 1rem; right: 1rem; padding: 0.5rem 1rem; background: var(--secondary); border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">Toggle Theme</button>
+
+  <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Ven-Manager Design System</h1>
+  <p style="color: var(--muted-foreground); margin-bottom: 2rem;">Based on shadcn-svelte with Tailwind CSS 4 and OKLCH color tokens</p>
+
+  <div class="section">
+    <h2 class="section-title">Colors</h2>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Core</h3>
+      <div class="color-grid">
+        <div class="color-swatch" style="background: var(--background); border: 1px solid var(--border);">
+          <span class="color-name">background</span>
+          <span class="color-value">oklch(1 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--foreground); color: white;">
+          <span class="color-name">foreground</span>
+          <span class="color-value">oklch(0.145 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--primary); color: var(--primary-foreground);">
+          <span class="color-name">primary</span>
+          <span class="color-value">oklch(0.205 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--secondary); color: var(--secondary-foreground);">
+          <span class="color-name">secondary</span>
+          <span class="color-value">oklch(0.97 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--muted); color: var(--muted-foreground);">
+          <span class="color-name">muted</span>
+          <span class="color-value">oklch(0.97 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--accent); color: var(--accent-foreground);">
+          <span class="color-name">accent</span>
+          <span class="color-value">oklch(0.97 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--destructive); color: white;">
+          <span class="color-name">destructive</span>
+          <span class="color-value">oklch(0.577 0.245)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">UI Elements</h3>
+      <div class="color-grid">
+        <div class="color-swatch" style="background: var(--border);">
+          <span class="color-name">border</span>
+          <span class="color-value">oklch(0.922 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--input); border: 1px solid var(--border);">
+          <span class="color-name">input</span>
+          <span class="color-value">oklch(0.922 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--ring);">
+          <span class="color-name">ring</span>
+          <span class="color-value">oklch(0.708 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--card); border: 1px solid var(--border); color: var(--card-foreground);">
+          <span class="color-name">card</span>
+          <span class="color-value">oklch(1 0 0)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3 class="subsection-title">Sidebar</h3>
+      <div class="color-grid">
+        <div class="color-swatch" style="background: var(--sidebar); border: 1px solid var(--border);">
+          <span class="color-name">sidebar</span>
+          <span class="color-value">oklch(0.985 0 0)</span>
+        </div>
+        <div class="color-swatch" style="background: var(--sidebar-foreground); color: white;">
+          <span class="color-name">sidebar-foreground</span>
+          <span class="color-value">oklch(0.145 0 0)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Typography</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Size</th>
+          <th>Weight</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>H1</td>
+          <td>2.25rem</td>
+          <td>700</td>
+          <td><span style="font-size: 2.25rem; font-weight: 700;">Heading 1</span></td>
+        </tr>
+        <tr>
+          <td>H2</td>
+          <td>1.5rem</td>
+          <td>600</td>
+          <td><span style="font-size: 1.5rem; font-weight: 600;">Heading 2</span></td>
+        </tr>
+        <tr>
+          <td>H3</td>
+          <td>1.25rem</td>
+          <td>600</td>
+          <td><span style="font-size: 1.25rem; font-weight: 600;">Heading 3</span></td>
+        </tr>
+        <tr>
+          <td>Body</td>
+          <td>1rem</td>
+          <td>400</td>
+          <td><span style="font-size: 1rem;">Body text</span></td>
+        </tr>
+        <tr>
+          <td>Small</td>
+          <td>0.875rem</td>
+          <td>400</td>
+          <td><span style="font-size: 0.875rem;">Small text</span></td>
+        </tr>
+        <tr>
+          <td>Caption</td>
+          <td>0.75rem</td>
+          <td>400</td>
+          <td><span style="font-size: 0.75rem;">Caption text</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Spacing</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>--spacing</td>
+          <td>0.25rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 0.25rem;"></div> 4px</div></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>0.25rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 0.25rem;"></div> 4px</div></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>0.5rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 0.5rem;"></div> 8px</div></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>0.75rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 0.75rem;"></div> 12px</div></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>1rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 1rem;"></div> 16px</div></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>1.5rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 1.5rem;"></div> 24px</div></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>2rem</td>
+          <td><div class="spacing-demo"><div class="spacing-bar" style="width: 2rem;"></div> 32px</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Border Radius</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>--radius</td>
+          <td>0.625rem</td>
+          <td><div style="width: 3rem; height: 3rem; background: var(--primary); border-radius: 0.625rem;"></div></td>
+        </tr>
+        <tr>
+          <td>sm</td>
+          <td>calc(--radius - 4px)</td>
+          <td><div style="width: 3rem; height: 3rem; background: var(--primary); border-radius: calc(0.625rem - 4px);"></div></td>
+        </tr>
+        <tr>
+          <td>md</td>
+          <td>calc(--radius - 2px)</td>
+          <td><div style="width: 3rem; height: 3rem; background: var(--primary); border-radius: calc(0.625rem - 2px);"></div></td>
+        </tr>
+        <tr>
+          <td>lg</td>
+          <td>--radius</td>
+          <td><div style="width: 3rem; height: 3rem; background: var(--primary); border-radius: var(--radius);"></div></td>
+        </tr>
+        <tr>
+          <td>xl</td>
+          <td>calc(--radius + 4px)</td>
+          <td><div style="width: 3rem; height: 3rem; background: var(--primary); border-radius: calc(0.625rem + 4px);"></div></td>
+        </tr>
+        <tr>
+          <td>full</td>
+          <td>9999px</td>
+          <td><div style="width: 3rem; height: 3rem; background: var(--primary); border-radius: 9999px;"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Components</h2>
+
+    <div class="component-grid">
+      <div class="component-card">
+        <div class="component-title">Buttons</div>
+        <div class="component-desc">Interactive button elements for user actions.</div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-destructive">Destructive</button>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-title">Badges</div>
+        <div class="component-desc">Status indicators and labels.</div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <span class="badge badge-default">Default</span>
+          <span class="badge badge-secondary">Secondary</span>
+          <span class="badge badge-outline">Outline</span>
+          <span class="badge badge-destructive">Destructive</span>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-title">Cards</div>
+        <div class="component-desc">Container for grouping related content.</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Card Title</div>
+            <div class="card-desc">Card description goes here.</div>
+          </div>
+          <div class="card-content">
+            <p>Card content area.</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary">Action</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-title">Input</div>
+        <div class="component-desc">Text input field for user data entry.</div>
+        <input class="input" type="text" placeholder="Enter text...">
+      </div>
+
+      <div class="component-card">
+        <div class="component-title">Avatar</div>
+        <div class="component-desc">User profile image or initials.</div>
+        <div style="display: flex; gap: 0.75rem;">
+          <div class="avatar">A</div>
+          <div class="avatar" style="background: var(--primary); color: var(--primary-foreground);">B</div>
+          <div class="avatar" style="background: var(--destructive); color: white;">C</div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-title">Sidebar</div>
+        <div class="component-desc">Navigation sidebar with collapsible icon mode.</div>
+        <div style="color: var(--muted-foreground); font-size: 0.875rem;">
+          <p>Variants: sidebar, floating, inset</p>
+          <p>Collapsible: offcanvas, icon, none</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Shadows</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>CSS</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sm</td>
+          <td>box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)</td>
+          <td><div style="width: 6rem; height: 3rem; background: var(--card); border-radius: var(--radius); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);"></div></td>
+        </tr>
+        <tr>
+          <td>md</td>
+          <td>box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1)</td>
+          <td><div style="width: 6rem; height: 3rem; background: var(--card); border-radius: var(--radius); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></div></td>
+        </tr>
+        <tr>
+          <td>lg</td>
+          <td>box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1)</td>
+          <td><div style="width: 6rem; height: 3rem; background: var(--card); border-radius: var(--radius); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Transitions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Duration</th>
+          <th>Easing</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>width, height</td>
+          <td>200ms</td>
+          <td>ease-linear</td>
+          <td>Sidebar collapse/expand</td>
+        </tr>
+        <tr>
+          <td>opacity</td>
+          <td>150ms</td>
+          <td>ease-in-out</td>
+          <td>Hover states, focus</td>
+        </tr>
+        <tr>
+          <td>colors</td>
+          <td>200ms</td>
+          <td>ease-in-out</td>
+          <td>Theme transitions</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
