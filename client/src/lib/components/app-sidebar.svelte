@@ -22,7 +22,7 @@
 </script>
 
 <aside class="sidebar" class:collapsed>
-  <div class="sidebar-brand">
+  <div class="sidebar-brand wave-in" style="animation-delay: 0ms;">
     {#if collapsed}
       <button onclick={toggleSidebar} class="toggle-btn" title="Expand sidebar">
         <PanelLeftOpen class="size-5" />
@@ -40,12 +40,13 @@
   </div>
 
   <nav class="sidebar-nav">
-    {#each navItems as item}
+    {#each navItems as item, i}
       <a
         href={item.href}
-        class="nav-item"
+        class="nav-item wave-in"
         class:active={currentPath === item.href}
         title={collapsed ? item.label : undefined}
+        style="animation-delay: {i * 50}ms;"
       >
         <span class="nav-dot"></span>
         <item.icon class="nav-icon" />
@@ -56,7 +57,7 @@
     {/each}
   </nav>
 
-  <div class="sidebar-footer">
+  <div class="sidebar-footer wave-in" style="animation-delay: 300ms;">
     <div class="user-avatar">A</div>
     {#if !collapsed}
       <div class="user-info">
@@ -287,5 +288,21 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .wave-in {
+    opacity: 0;
+    animation: waveIn 0.4s ease-out forwards;
+  }
+
+  @keyframes waveIn {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 </style>
