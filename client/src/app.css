@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@source "../node_modules/flowbite-svelte/dist";
 
 @theme inline {
   --color-background: var(--background);
