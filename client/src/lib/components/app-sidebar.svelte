@@ -1,7 +1,15 @@
 <script lang="ts">
   import { LayoutDashboard, Users, FolderOpen, MessageSquare, Receipt, Settings } from '@lucide/svelte';
+  import { sidebarCollapsed } from '$lib/stores/sidebar';
 
   let { currentPath = '/' } = $props();
+
+  let collapsed = $state(false);
+
+  $effect(() => {
+    const unsub = sidebarCollapsed.subscribe(v => collapsed = v);
+    return unsub;
+  });
 
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
@@ -13,13 +21,15 @@
   ];
 </script>
 
-<aside class="sidebar">
+<aside class="sidebar" class:collapsed>
   <div class="sidebar-brand">
     <div class="brand-icon">V</div>
-    <div class="brand-text">
-      <span class="brand-name">Ven-Manager</span>
-      <span class="brand-label">Admin Workspace</span>
-    </div>
+    {#if !collapsed}
+      <div class="brand-text">
+        <span class="brand-name">Ven-Manager</span>
+        <span class="brand-label">Admin Workspace</span>
+      </div>
+    {/if}
   </div>
 
   <nav class="sidebar-nav">
@@ -28,20 +38,25 @@
         href={item.href}
         class="nav-item"
         class:active={currentPath === item.href}
+        title={collapsed ? item.label : undefined}
       >
         <span class="nav-dot"></span>
         <item.icon class="nav-icon" />
-        <span class="nav-label">{item.label}</span>
+        {#if !collapsed}
+          <span class="nav-label">{item.label}</span>
+        {/if}
       </a>
     {/each}
   </nav>
 
   <div class="sidebar-footer">
     <div class="user-avatar">A</div>
-    <div class="user-info">
-      <span class="user-name">Admin</span>
-      <span class="user-email">admin@ven-manager.com</span>
-    </div>
+    {#if !collapsed}
+      <div class="user-info">
+        <span class="user-name">Admin</span>
+        <span class="user-email">admin@ven-manager.com</span>
+      </div>
+    {/if}
   </div>
 </aside>
 
@@ -56,6 +71,13 @@
     gap: 2px;
     box-shadow: var(--v-shadow-raised);
     flex-shrink: 0;
+    transition: width 0.18s ease-out;
+    overflow: hidden;
+  }
+
+  .sidebar.collapsed {
+    width: 64px;
+    padding: 14px 12px;
   }
 
   .sidebar-brand {
@@ -65,6 +87,14 @@
     padding: 8px 10px 14px;
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
     margin-bottom: 8px;
+    min-height: 48px;
+  }
+
+  .collapsed .sidebar-brand {
+    padding: 8px 0 14px;
+    justify-content: center;
+    border-bottom: none;
+    margin-bottom: 4px;
   }
 
   .brand-icon {
@@ -78,17 +108,20 @@
     justify-content: center;
     font-family: 'Georgia', serif;
     font-size: 14px;
+    flex-shrink: 0;
   }
 
   .brand-text {
     display: flex;
     flex-direction: column;
+    min-width: 0;
   }
 
   .brand-name {
     font-family: 'Georgia', serif;
     font-size: 13px;
     color: var(--v-surface);
+    white-space: nowrap;
   }
 
   .brand-label {
@@ -96,6 +129,7 @@
     font-size: 9px;
     color: rgba(245, 243, 238, 0.35);
     letter-spacing: 0.04em;
+    white-space: nowrap;
   }
 
   .sidebar-nav {
@@ -117,6 +151,12 @@
     text-decoration: none;
     transition: all 0.18s ease-out;
     cursor: pointer;
+    position: relative;
+  }
+
+  .collapsed .nav-item {
+    padding: 7px;
+    justify-content: center;
   }
 
   .nav-item:hover {
@@ -136,6 +176,14 @@
     background: var(--v-gold);
     opacity: 0;
     transition: opacity 0.18s ease-out;
+    position: absolute;
+    left: 2px;
+  }
+
+  .collapsed .nav-dot {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 2px;
   }
 
   .nav-item.active .nav-dot {
@@ -144,6 +192,7 @@
 
   .nav-label {
     flex: 1;
+    white-space: nowrap;
   }
 
   .sidebar-footer {
@@ -153,6 +202,13 @@
     padding: 10px;
     border-top: 0.5px solid rgba(255, 255, 255, 0.06);
     margin-top: 8px;
+  }
+
+  .collapsed .sidebar-footer {
+    padding: 10px 0;
+    justify-content: center;
+    border-top: none;
+    margin-top: 4px;
   }
 
   .user-avatar {
