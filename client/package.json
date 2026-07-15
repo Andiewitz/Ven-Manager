@@ -28,6 +28,7 @@
 		"@tailwindcss/vite": "^4.3.2",
 		"bits-ui": "^2.18.1",
 		"clsx": "^2.1.1",
+		"flowbite-svelte": "^1.33.1",
 		"lucide-svelte": "^1.0.1",
 		"tailwind-merge": "^3.6.0",
 		"tailwindcss": "^4.3.2"

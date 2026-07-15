@@ -1,18 +1,16 @@
 <script lang="ts">
-  import * as Sidebar from '$lib/components/ui/sidebar';
   import AppSidebar from '$lib/components/app-sidebar.svelte';
   import Dashboard from '$lib/pages/dashboard.svelte';
 </script>
 
-<Sidebar.Provider>
+<div class="flex h-screen">
   <AppSidebar />
-  <Sidebar.Inset>
-    <header class="flex h-16 shrink-0 items-center gap-2 border-b border-border px-4">
-      <Sidebar.Trigger />
-      <h1 class="text-[18px] font-normal tracking-[-0.3px]" style="font-family: 'Georgia', serif;">Dashboard</h1>
+  <main class="flex-1 overflow-auto" style="background: var(--v-surface);">
+    <header class="h-16 shrink-0 flex items-center gap-2 border-b px-6" style="border-color: var(--v-border); background: var(--v-surface-card);">
+      <h1 class="text-[18px] font-normal tracking-[-0.3px]" style="font-family: 'Georgia', serif; color: var(--v-ink);">Dashboard</h1>
     </header>
-    <main class="flex-1 overflow-auto p-6">
+    <div class="p-6">
       <Dashboard />
-    </main>
-  </Sidebar.Inset>
-</Sidebar.Provider>
+    </div>
+  </main>
+</div>
