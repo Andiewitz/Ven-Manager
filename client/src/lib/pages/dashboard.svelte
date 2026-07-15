@@ -15,6 +15,7 @@
 {#if loading}
   <DashboardSkeleton />
 {:else}
+  <div class="fade-in">
   <!-- Stats Grid -->
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
     <!-- Light stat card -->
@@ -114,4 +115,22 @@
       </div>
     </div>
   </div>
+  </div>
 {/if}
+
+<style>
+  .fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
