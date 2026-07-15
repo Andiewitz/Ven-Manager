@@ -1,0 +1,530 @@
+
+<style>
+  :root {
+    --v-ink: #0E0F14;
+    --v-ink-2: #1C1E2A;
+    --v-ink-3: #2A2D3E;
+    --v-surface: #F5F3EE;
+    --v-surface-2: #EDEBE4;
+    --v-surface-card: #FAFAF7;
+    --v-gold: #C8A85A;
+    --v-gold-light: #EFE2C0;
+    --v-gold-dark: #9A7D36;
+    --v-sage: #5A7A6A;
+    --v-sage-light: #D4E3DB;
+    --v-sage-dark: #3B5448;
+    --v-coral: #C45C3E;
+    --v-coral-light: #F4D8D0;
+    --v-navy: #1E2D4A;
+    --v-muted: #7A7B82;
+    --v-border: rgba(14,15,20,0.10);
+    --v-border-strong: rgba(14,15,20,0.18);
+    --v-shadow-card: 0 0 6px rgba(30,45,74,0.06), 0 8px 20px rgba(30,45,74,0.08);
+    --v-shadow-raised: 0 0 8px rgba(30,45,74,0.08), 0 16px 32px rgba(30,45,74,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body, .kit-root { font-family: 'Georgia', serif; }
+  .kit-root { background: var(--v-surface); padding: 32px 28px; min-height: 100vh; }
+  .section-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--v-muted);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--v-border);
+  }
+  .section { margin-bottom: 40px; }
+  .kit-title {
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    font-weight: normal;
+    color: var(--v-ink);
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .kit-sub {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--v-muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.04em;
+  }
+
+  /* COLOR SWATCHES */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+  .swatch { border-radius: 10px; overflow: hidden; box-shadow: var(--v-shadow-card); }
+  .swatch-color { height: 56px; }
+  .swatch-info { background: var(--v-surface-card); padding: 10px 12px; border-top: 0.5px solid var(--v-border); }
+  .swatch-name { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-ink); font-weight: bold; letter-spacing: 0.04em; }
+  .swatch-hex { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-muted); margin-top: 2px; }
+  .swatch-role { font-family: 'Courier New', monospace; font-size: 9px; color: var(--v-muted); margin-top: 3px; opacity: 0.8; }
+
+  /* TYPOGRAPHY */
+  .type-specimen { background: var(--v-surface-card); border-radius: 12px; border: 0.5px solid var(--v-border); padding: 24px; box-shadow: var(--v-shadow-card); }
+  .type-row { display: flex; align-items: baseline; gap: 20px; padding: 10px 0; border-bottom: 0.5px solid var(--v-border); }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-muted); min-width: 120px; line-height: 1.5; }
+  .type-sample-display { font-family: 'Georgia', serif; font-size: 28px; font-weight: normal; color: var(--v-ink); letter-spacing: -0.5px; }
+  .type-sample-head { font-family: 'Georgia', serif; font-size: 18px; font-weight: normal; color: var(--v-ink); }
+  .type-sample-sub { font-family: 'Georgia', serif; font-size: 14px; color: var(--v-ink-3); font-style: italic; }
+  .type-sample-body { font-family: -apple-system, 'Helvetica Neue', sans-serif; font-size: 13px; color: var(--v-ink-3); line-height: 1.6; }
+  .type-sample-mono { font-family: 'Courier New', monospace; font-size: 11px; color: var(--v-muted); letter-spacing: 0.08em; }
+  .type-sample-label { font-family: -apple-system, 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: var(--v-muted); }
+
+  /* RADIUS */
+  .radius-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .radius-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .radius-box { width: 64px; height: 64px; background: var(--v-surface-card); border: 0.5px solid var(--v-border-strong); }
+  .radius-label { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-muted); text-align: center; }
+
+  /* SHADOW */
+  .shadow-row { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end; }
+  .shadow-item { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .shadow-box { width: 72px; height: 72px; border-radius: 10px; background: var(--v-surface-card); }
+  .shadow-label { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-muted); text-align: center; }
+
+  /* COMPONENTS */
+  .component-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .component-grid { grid-template-columns: 1fr; } }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--v-ink);
+    color: var(--v-surface);
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--v-ink);
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 0.5px solid var(--v-border-strong);
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .btn-gold {
+    background: var(--v-gold);
+    color: #fff;
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--v-muted);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    border: none;
+    padding: 10px 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .btn-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 20px; background: var(--v-surface-card); border-radius: 10px; border: 0.5px solid var(--v-border); }
+
+  /* CARD EXAMPLES */
+  .ex-card {
+    background: var(--v-surface-card);
+    border: 0.5px solid var(--v-border);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--v-shadow-card);
+  }
+  .ex-card-dark {
+    background: var(--v-ink-2);
+    border: 0.5px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--v-shadow-raised);
+  }
+  .ex-card-head { font-family: 'Georgia', serif; font-size: 13px; color: var(--v-ink); margin-bottom: 4px; }
+  .ex-card-head-light { font-family: 'Georgia', serif; font-size: 13px; color: var(--v-surface); margin-bottom: 4px; }
+  .ex-card-sub { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-muted); margin-bottom: 14px; }
+  .ex-card-sub-light { font-family: 'Courier New', monospace; font-size: 10px; color: rgba(245,243,238,0.45); margin-bottom: 14px; }
+  .stat-val { font-family: 'Georgia', serif; font-size: 26px; color: var(--v-ink); letter-spacing: -0.5px; }
+  .stat-val-light { font-family: 'Georgia', serif; font-size: 26px; color: var(--v-surface); letter-spacing: -0.5px; }
+  .stat-delta { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-sage); margin-top: 4px; }
+  .stat-delta-warn { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-gold); margin-top: 4px; }
+
+  /* BADGE / STATUS */
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .badge {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .badge-active { background: var(--v-sage-light); color: var(--v-sage-dark); }
+  .badge-pending { background: var(--v-gold-light); color: var(--v-gold-dark); }
+  .badge-review { background: #D6DCF5; color: #2D3A7A; }
+  .badge-blocked { background: var(--v-coral-light); color: var(--v-coral); }
+  .badge-done { background: var(--v-ink-3); color: var(--v-surface-2); }
+
+  /* INPUTS */
+  .input-group { display: flex; flex-direction: column; gap: 10px; }
+  .ex-label { font-family: -apple-system, 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--v-muted); margin-bottom: 5px; }
+  .ex-input {
+    width: 100%;
+    background: var(--v-surface-2);
+    border: 0.5px solid var(--v-border-strong);
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    color: var(--v-ink);
+    outline: none;
+  }
+  .ex-input::placeholder { color: var(--v-muted); }
+
+  /* AVATAR */
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Georgia', serif; font-size: 13px; font-weight: normal; flex-shrink: 0; }
+  .avatar-ink { background: var(--v-ink); color: var(--v-gold); }
+  .avatar-sage { background: var(--v-sage-light); color: var(--v-sage-dark); }
+  .avatar-gold { background: var(--v-gold-light); color: var(--v-gold-dark); }
+
+  /* NAV SAMPLE */
+  .nav-sample {
+    background: var(--v-ink);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: var(--v-shadow-raised);
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    color: rgba(245,243,238,0.55);
+    cursor: pointer;
+  }
+  .nav-item.active {
+    background: rgba(200,168,90,0.15);
+    color: var(--v-gold);
+  }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--v-gold); opacity: 0; }
+  .nav-item.active .nav-dot { opacity: 1; }
+
+  /* PROGRESS BAR */
+  .progress-track { background: var(--v-surface-2); border-radius: 2px; height: 3px; width: 100%; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 2px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 0.5px solid var(--v-border); margin: 6px 0; }
+
+  .spacing-note { font-family: 'Courier New', monospace; font-size: 10px; color: var(--v-muted); line-height: 1.8; }
+</style>
+
+<div class="kit-root">
+  <h2 class="sr-only">Ven-Manager design kit — colors, typography, components, and tokens</h2>
+
+  <p class="kit-title">Ven-Manager — Design Kit</p>
+  <p class="kit-sub">Client & Team Management Platform · v1.0</p>
+
+  <!-- COLORS -->
+  <div class="section">
+    <p class="section-label">Color System</p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0E0F14;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Ink</p>
+          <p class="swatch-hex">#0E0F14</p>
+          <p class="swatch-role">Sidebar · Nav · Dark surfaces</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1C1E2A;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Ink 2</p>
+          <p class="swatch-hex">#1C1E2A</p>
+          <p class="swatch-role">Dark cards · elevated dark</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F5F3EE;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Linen</p>
+          <p class="swatch-hex">#F5F3EE</p>
+          <p class="swatch-role">Page background</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FAFAF7;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Parchment</p>
+          <p class="swatch-hex">#FAFAF7</p>
+          <p class="swatch-role">Card surface</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C8A85A;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Antique Gold</p>
+          <p class="swatch-hex">#C8A85A</p>
+          <p class="swatch-role">Accent · CTA · highlights</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#5A7A6A;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Sage</p>
+          <p class="swatch-hex">#5A7A6A</p>
+          <p class="swatch-role">Success · active · progress</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C45C3E;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Terracotta</p>
+          <p class="swatch-hex">#C45C3E</p>
+          <p class="swatch-role">Warning · blocked · error</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#7A7B82;"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Dusk</p>
+          <p class="swatch-hex">#7A7B82</p>
+          <p class="swatch-role">Secondary text · metadata</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <p class="section-label">Typography</p>
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-meta">Display<br>Georgia serif<br>28px / normal</div>
+        <div class="type-sample-display">Client Overview</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Heading<br>Georgia serif<br>18px / normal</div>
+        <div class="type-sample-head">Project Status · Q3 2026</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Subhead<br>Georgia serif italic<br>14px</div>
+        <div class="type-sample-sub">Last updated 3 days ago</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Body<br>System sans<br>13px / 1.6</div>
+        <div class="type-sample-body">Your client portal gives you real-time visibility into every deliverable, milestone, and conversation in one place.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Mono / Labels<br>Courier New<br>10–11px</div>
+        <div class="type-sample-mono">INVOICE #00142 · DUE 2026-07-31</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Eyebrow<br>System sans<br>10px / 600 / UC</div>
+        <div class="type-sample-label">Active Projects</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RADIUS + SHADOW -->
+  <div class="section">
+    <p class="section-label">Radius & Elevation</p>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div>
+        <p class="spacing-note" style="margin-bottom:14px;">Radius system</p>
+        <div class="radius-row">
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:0;"></div>
+            <p class="radius-label">0px<br>Dividers</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:4px;"></div>
+            <p class="radius-label">4px<br>Badges</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:6px;"></div>
+            <p class="radius-label">6px<br>Buttons · Inputs</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:12px;"></div>
+            <p class="radius-label">12px<br>Cards</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:50%;"></div>
+            <p class="radius-label">50%<br>Avatars</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="spacing-note" style="margin-bottom:14px;">Shadow levels</p>
+        <div class="shadow-row">
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow: 0 0 4px rgba(30,45,74,0.04), 0 4px 10px rgba(30,45,74,0.06);"></div>
+            <p class="shadow-label">Elev 1<br>Inputs</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow: 0 0 6px rgba(30,45,74,0.06), 0 8px 20px rgba(30,45,74,0.08); width:80px; height:80px;"></div>
+            <p class="shadow-label">Elev 2<br>Cards</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow: 0 0 8px rgba(30,45,74,0.08), 0 16px 32px rgba(30,45,74,0.12); width:88px; height:88px;"></div>
+            <p class="shadow-label">Elev 3<br>Modals</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS BADGES -->
+  <div class="section">
+    <p class="section-label">Status Badges</p>
+    <div style="background:var(--v-surface-card); border:0.5px solid var(--v-border); border-radius:10px; padding:16px;">
+      <div class="badge-row">
+        <span class="badge badge-active">Active</span>
+        <span class="badge badge-pending">Pending review</span>
+        <span class="badge badge-review">In revision</span>
+        <span class="badge badge-blocked">Blocked</span>
+        <span class="badge badge-done">Delivered</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="section">
+    <p class="section-label">Buttons</p>
+    <div class="btn-group">
+      <button class="btn-primary">Approve</button>
+      <button class="btn-gold">Request changes</button>
+      <button class="btn-secondary">View details</button>
+      <button class="btn-ghost">Cancel</button>
+    </div>
+  </div>
+
+  <!-- INPUTS -->
+  <div class="section">
+    <p class="section-label">Form Inputs</p>
+    <div style="background:var(--v-surface-card); border:0.5px solid var(--v-border); border-radius:10px; padding:20px;">
+      <div class="input-group">
+        <div>
+          <p class="ex-label">Client name</p>
+          <input class="ex-input" type="text" placeholder="Acme Corporation" />
+        </div>
+        <div>
+          <p class="ex-label">Project description</p>
+          <input class="ex-input" type="text" placeholder="Brand identity redesign — Phase 2" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="section">
+    <p class="section-label">Card Components</p>
+    <div class="component-grid">
+      <!-- Light stat card -->
+      <div class="ex-card">
+        <p class="ex-card-sub">Total clients</p>
+        <p class="stat-val">24</p>
+        <p class="stat-delta">↑ +3 this month</p>
+      </div>
+      <!-- Dark stat card -->
+      <div class="ex-card-dark">
+        <p class="ex-card-sub-light">Revenue · July</p>
+        <p class="stat-val-light">₱142,000</p>
+        <p class="stat-delta-warn">2 invoices pending</p>
+      </div>
+      <!-- Project card -->
+      <div class="ex-card" style="grid-column:1/-1;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div>
+            <p class="ex-card-head">Dragon Lore — Brand Identity</p>
+            <p class="ex-card-sub">Started Jun 12 · Est. delivery Jul 28</p>
+          </div>
+          <span class="badge badge-review">In revision</span>
+        </div>
+        <div class="progress-track" style="margin-bottom:8px;">
+          <div class="progress-fill" style="width:68%; background:var(--v-sage);"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+          <div style="display:flex; gap:6px;">
+            <div class="avatar avatar-ink">A</div>
+            <div class="avatar avatar-gold">DL</div>
+          </div>
+          <p style="font-family:'Courier New',monospace; font-size:10px; color:var(--v-muted);">68% complete</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV SAMPLE -->
+  <div class="section">
+    <p class="section-label">Navigation — Sidebar</p>
+    <div class="nav-sample">
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 10px 14px; border-bottom:0.5px solid rgba(255,255,255,0.06); margin-bottom:8px;">
+        <div class="avatar avatar-ink" style="background:var(--v-gold); color:var(--v-ink); font-size:12px;">V</div>
+        <div>
+          <p style="font-family:'Georgia',serif; font-size:13px; color:var(--v-surface);">Ven-Manager</p>
+          <p style="font-family:'Courier New',monospace; font-size:9px; color:rgba(245,243,238,0.35);">ADMIN WORKSPACE</p>
+        </div>
+      </div>
+      <div class="nav-item active"><div class="nav-dot"></div>Dashboard</div>
+      <div class="nav-item"><div class="nav-dot"></div>Clients</div>
+      <div class="nav-item"><div class="nav-dot"></div>Projects</div>
+      <div class="nav-item"><div class="nav-dot"></div>Messages</div>
+      <div class="nav-item"><div class="nav-dot"></div>Invoices</div>
+      <div class="nav-item"><div class="nav-dot"></div>Settings</div>
+    </div>
+  </div>
+
+  <!-- SPACING + TOKENS -->
+  <div class="section">
+    <p class="section-label">Spacing & Token Reference</p>
+    <div style="background:var(--v-surface-card); border:0.5px solid var(--v-border); border-radius:10px; padding:18px;">
+      <p class="spacing-note">
+        --space-xs: 4px · --space-sm: 8px · --space-md: 16px<br>
+        --space-lg: 24px · --space-xl: 32px · --space-2xl: 48px<br><br>
+        --border-default: 0.5px solid rgba(14,15,20,0.10)<br>
+        --border-strong: 0.5px solid rgba(14,15,20,0.18)<br>
+        --border-dark: 0.5px solid rgba(255,255,255,0.06)<br><br>
+        Sidebar width: 220px · Content max-width: 1080px<br>
+        Grid gutter: 20px · Card padding: 18–24px<br><br>
+        Motion: 180ms ease-out for state transitions<br>
+        Hover: opacity 0.75 on ghost elements
+      </p>
+    </div>
+  </div>
+
+  <!-- EMOTIONAL REGISTER NOTE -->
+  <div class="section" style="margin-bottom:0;">
+    <p class="section-label">Design Rationale</p>
+    <div style="background:var(--v-ink-2); border-radius:10px; padding:20px; box-shadow:var(--v-shadow-raised);">
+      <p style="font-family:'Georgia',serif; font-size:13px; color:var(--v-surface); line-height:1.7; margin-bottom:10px;">Dark ink sidebar + warm linen content = authority without coldness. Clients feel like they've entered a serious professional's workspace, not a startup dashboard.</p>
+      <p style="font-family:'Georgia',serif; font-size:13px; color:var(--v-surface); line-height:1.7; margin-bottom:10px;">Antique gold as accent signals premium without being showy. It's not the main event — it punctuates. The badge on the nav item, the CTA button, the invoice amount.</p>
+      <p style="font-family:'Courier New',monospace; font-size:10px; color:rgba(245,243,238,0.4); margin-top:14px; line-height:1.8;">Serif display + mono metadata is intentional tension. Warm vs precise. Human voice + system detail. Exactly what a client-facing tool needs to feel like.</p>
+    </div>
+  </div>
+</div>
