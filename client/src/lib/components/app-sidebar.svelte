@@ -113,7 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Georgia', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 14px;
     flex-shrink: 0;
   }
@@ -126,7 +126,7 @@
   }
 
   .brand-name {
-    font-family: 'Georgia', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 13px;
     color: var(--v-surface);
     white-space: nowrap;
@@ -258,7 +258,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Georgia', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 13px;
     flex-shrink: 0;
   }
@@ -270,7 +270,7 @@
   }
 
   .user-name {
-    font-family: 'Georgia', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 13px;
     color: var(--v-surface);
     white-space: nowrap;
