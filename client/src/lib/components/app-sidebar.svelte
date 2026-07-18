@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { LayoutDashboard, Users, FolderOpen, MessageSquare, Receipt, Settings, PanelLeftClose, PanelLeftOpen } from '@lucide/svelte';
+  import LayoutDashboard from '@lucide/svelte/icons/layout-dashboard';
+  import Users from '@lucide/svelte/icons/users';
+  import FolderOpen from '@lucide/svelte/icons/folder-open';
+  import MessageSquare from '@lucide/svelte/icons/message-square';
+  import Receipt from '@lucide/svelte/icons/receipt';
+  import Settings from '@lucide/svelte/icons/settings';
+  import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
+  import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
   import { sidebarCollapsed, toggleSidebar } from '$lib/stores/sidebar';
 
   let { currentPath = '/' } = $props();
