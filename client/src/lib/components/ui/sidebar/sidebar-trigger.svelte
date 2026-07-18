@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from "$lib/components/ui/button/index.js";
-	import { Bars3Icon } from 'heroicons-svelte/24/outline';
+	import { Bars3Icon } from '@fvilers/heroicons-svelte/24/outline';
 	import { cn } from "$lib/utils.js";
 	import type { ComponentProps } from "svelte";
 	import { useSidebar } from "./context.svelte.js";

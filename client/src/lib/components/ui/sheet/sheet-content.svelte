@@ -8,7 +8,7 @@
 	import SheetPortal from "./sheet-portal.svelte";
 	import SheetOverlay from "./sheet-overlay.svelte";
 	import { Button } from "$lib/components/ui/button/index.js";
-	import { XMarkIcon } from 'heroicons-svelte/24/outline';
+	import { XMarkIcon } from '@fvilers/heroicons-svelte/24/outline';
 	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
 	import type { ComponentProps } from "svelte";
 

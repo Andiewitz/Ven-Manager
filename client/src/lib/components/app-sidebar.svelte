@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Squares2x2Icon, UsersIcon, FolderOpenIcon, ChatBubbleLeftIcon, DocumentTextIcon, Cog6ToothIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from 'heroicons-svelte/24/outline';
+  import { Squares2x2Icon, UsersIcon, FolderOpenIcon, ChatBubbleLeftIcon, DocumentTextIcon, Cog6ToothIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@fvilers/heroicons-svelte/24/outline';
   import { sidebarCollapsed, toggleSidebar } from '$lib/stores/sidebar';
 
   let { currentPath = '/' } = $props();
