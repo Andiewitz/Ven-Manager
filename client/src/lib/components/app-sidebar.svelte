@@ -55,7 +55,6 @@
         title={collapsed ? item.label : undefined}
         style="animation-delay: {i * 50}ms;"
       >
-        <span class="nav-dot"></span>
         <item.icon class="nav-icon" />
         {#if !collapsed}
           <span class="nav-label">{item.label}</span>
@@ -185,12 +184,12 @@
     align-items: center;
     gap: 10px;
     padding: 7px 10px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-family: -apple-system, 'Helvetica Neue', sans-serif;
     font-size: 12px;
-    color: rgba(245, 243, 238, 0.55);
+    color: rgba(245, 243, 238, 0.4);
     text-decoration: none;
-    transition: all 0.18s ease-out;
+    transition: color 0.18s ease-out;
     cursor: pointer;
     position: relative;
   }
@@ -201,34 +200,31 @@
   }
 
   .nav-item:hover {
-    background: rgba(200, 168, 90, 0.15);
-    color: var(--v-gold);
+    color: rgba(245, 243, 238, 0.75);
   }
 
   .nav-item.active {
-    background: rgba(200, 168, 90, 0.15);
     color: var(--v-gold);
   }
 
-  .nav-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--v-gold);
-    opacity: 0;
-    transition: opacity 0.18s ease-out;
+  .nav-item.active::before {
+    content: '';
     position: absolute;
-    left: 2px;
+    left: -8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--v-gold);
   }
 
-  .collapsed .nav-dot {
+  .collapsed .nav-item.active::before {
     left: 50%;
     transform: translateX(-50%);
-    bottom: 2px;
-  }
-
-  .nav-item.active .nav-dot {
-    opacity: 1;
+    top: auto;
+    bottom: -4px;
+    width: 12px;
+    height: 2px;
   }
 
   .nav-icon {
