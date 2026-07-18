@@ -25,7 +25,7 @@
   <div class="sidebar-brand wave-in" style="animation-delay: 0ms;">
     {#if collapsed}
       <button onclick={toggleSidebar} class="toggle-btn" title="Expand sidebar">
-        <ChevronDoubleRightIcon class="size-5" />
+        <ChevronDoubleRightIcon style="width: 20px; height: 20px;" />
       </button>
     {:else}
       <div class="brand-icon">V</div>
@@ -34,7 +34,7 @@
         <span class="brand-label">Admin Workspace</span>
       </div>
       <button onclick={toggleSidebar} class="toggle-btn toggle-btn-side" title="Collapse sidebar">
-        <ChevronDoubleLeftIcon class="size-5" />
+        <ChevronDoubleLeftIcon style="width: 20px; height: 20px;" />
       </button>
     {/if}
   </div>
@@ -48,7 +48,7 @@
         title={collapsed ? item.label : undefined}
         style="animation-delay: {i * 50}ms;"
       >
-        <item.icon class="nav-icon" />
+        <item.icon class="nav-icon" style="width: 16px; height: 16px; flex-shrink: 0;" />
         {#if !collapsed}
           <span class="nav-label">{item.label}</span>
         {/if}
