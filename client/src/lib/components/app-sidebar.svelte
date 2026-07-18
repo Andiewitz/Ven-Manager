@@ -113,7 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Fraunces', serif;
     font-size: 14px;
     flex-shrink: 0;
   }
@@ -126,7 +126,7 @@
   }
 
   .brand-name {
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Fraunces', serif;
     font-weight: 700;
     font-size: 13px;
     color: var(--v-surface);
@@ -134,7 +134,7 @@
   }
 
   .brand-label {
-    font-family: 'Courier New', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
     color: rgba(245, 243, 238, 0.35);
     letter-spacing: 0.04em;
@@ -178,7 +178,7 @@
     gap: 10px;
     padding: 7px 10px;
     border-radius: 4px;
-    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     color: rgba(245, 243, 238, 0.4);
     text-decoration: none;
@@ -256,7 +256,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Fraunces', serif;
     font-size: 13px;
     flex-shrink: 0;
   }
@@ -268,7 +268,7 @@
   }
 
   .user-name {
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Fraunces', serif;
     font-weight: 700;
     font-size: 13px;
     color: var(--v-surface);
@@ -278,7 +278,7 @@
   }
 
   .user-email {
-    font-family: 'Courier New', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: rgba(245, 243, 238, 0.35);
     white-space: nowrap;

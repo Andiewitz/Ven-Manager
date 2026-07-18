@@ -25,7 +25,7 @@
   }
 
   .error-code {
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Fraunces', serif;
     font-weight: 700;
     font-size: 6rem;
     color: var(--v-ink);
@@ -34,7 +34,7 @@
   }
 
   .error-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Fraunces', serif;
     font-weight: 700;
     font-size: 2rem;
     color: var(--v-ink);
@@ -42,7 +42,7 @@
   }
 
   .error-message {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1rem;
     color: var(--v-dusk);
     margin-bottom: 2rem;
@@ -51,7 +51,7 @@
 
   .error-link {
     display: inline-block;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.06em;
