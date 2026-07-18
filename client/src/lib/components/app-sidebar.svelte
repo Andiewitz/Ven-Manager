@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { Squares2x2Icon, UsersIcon, FolderOpenIcon, ChatBubbleLeftIcon, DocumentTextIcon, Cog6ToothIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@fvilers/heroicons-svelte/24/outline';
+  import HouseIcon from 'phosphor-svelte/lib/HouseIcon';
+  import UsersIcon from 'phosphor-svelte/lib/UsersIcon';
+  import FolderOpenIcon from 'phosphor-svelte/lib/FolderOpenIcon';
+  import ChatIcon from 'phosphor-svelte/lib/ChatIcon';
+  import FileTextIcon from 'phosphor-svelte/lib/FileTextIcon';
+  import GearIcon from 'phosphor-svelte/lib/GearIcon';
+  import CaretDoubleLeftIcon from 'phosphor-svelte/lib/CaretDoubleLeftIcon';
+  import CaretDoubleRightIcon from 'phosphor-svelte/lib/CaretDoubleRightIcon';
   import { sidebarCollapsed, toggleSidebar } from '$lib/stores/sidebar';
 
   let { currentPath = '/' } = $props();
@@ -12,12 +19,12 @@
   });
 
   const navItems = [
-    { icon: Squares2x2Icon, label: 'Dashboard', href: '/' },
+    { icon: HouseIcon, label: 'Dashboard', href: '/' },
     { icon: UsersIcon, label: 'Clients', href: '/clients' },
     { icon: FolderOpenIcon, label: 'Projects', href: '/projects' },
-    { icon: ChatBubbleLeftIcon, label: 'Messages', href: '/messages' },
-    { icon: DocumentTextIcon, label: 'Invoices', href: '/invoices' },
-    { icon: Cog6ToothIcon, label: 'Settings', href: '/settings' },
+    { icon: ChatIcon, label: 'Messages', href: '/messages' },
+    { icon: FileTextIcon, label: 'Invoices', href: '/invoices' },
+    { icon: GearIcon, label: 'Settings', href: '/settings' },
   ];
 </script>
 
@@ -25,7 +32,7 @@
   <div class="sidebar-brand wave-in" style="animation-delay: 0ms;">
     {#if collapsed}
       <button onclick={toggleSidebar} class="toggle-btn" title="Expand sidebar">
-        <ChevronDoubleRightIcon style="width: 20px; height: 20px;" />
+        <CaretDoubleRightIcon size={20} />
       </button>
     {:else}
       <div class="brand-icon">V</div>
@@ -34,7 +41,7 @@
         <span class="brand-label">Admin Workspace</span>
       </div>
       <button onclick={toggleSidebar} class="toggle-btn toggle-btn-side" title="Collapse sidebar">
-        <ChevronDoubleLeftIcon style="width: 20px; height: 20px;" />
+        <CaretDoubleLeftIcon size={20} />
       </button>
     {/if}
   </div>
@@ -48,7 +55,7 @@
         title={collapsed ? item.label : undefined}
         style="animation-delay: {i * 50}ms;"
       >
-        <item.icon class="nav-icon" style="width: 16px; height: 16px; flex-shrink: 0;" />
+        <item.icon size={16} />
         {#if !collapsed}
           <span class="nav-label">{item.label}</span>
         {/if}

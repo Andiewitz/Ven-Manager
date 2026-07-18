@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from "$lib/components/ui/button/index.js";
-	import { Bars3Icon } from '@fvilers/heroicons-svelte/24/outline';
+	import ListIcon from 'phosphor-svelte/lib/ListIcon';
 	import { cn } from "$lib/utils.js";
 	import type { ComponentProps } from "svelte";
 	import { useSidebar } from "./context.svelte.js";
@@ -31,6 +31,6 @@
 	}}
 	{...restProps}
 >
-	<Bars3Icon  />
+	<ListIcon size={16} />
 	<span class="sr-only">Toggle Sidebar</span>
 </Button>
