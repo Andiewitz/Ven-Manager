@@ -1,12 +1,5 @@
 <script lang="ts">
-  import LayoutDashboard from '@lucide/svelte/icons/layout-dashboard';
-  import Users from '@lucide/svelte/icons/users';
-  import FolderOpen from '@lucide/svelte/icons/folder-open';
-  import MessageSquare from '@lucide/svelte/icons/message-square';
-  import Receipt from '@lucide/svelte/icons/receipt';
-  import Settings from '@lucide/svelte/icons/settings';
-  import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
-  import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
+  import { Squares2x2Icon, UsersIcon, FolderOpenIcon, ChatBubbleLeftIcon, DocumentTextIcon, Cog6ToothIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from 'heroicons-svelte/24/outline';
   import { sidebarCollapsed, toggleSidebar } from '$lib/stores/sidebar';
 
   let { currentPath = '/' } = $props();
@@ -19,12 +12,12 @@
   });
 
   const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
-    { icon: Users, label: 'Clients', href: '/clients' },
-    { icon: FolderOpen, label: 'Projects', href: '/projects' },
-    { icon: MessageSquare, label: 'Messages', href: '/messages' },
-    { icon: Receipt, label: 'Invoices', href: '/invoices' },
-    { icon: Settings, label: 'Settings', href: '/settings' },
+    { icon: Squares2x2Icon, label: 'Dashboard', href: '/' },
+    { icon: UsersIcon, label: 'Clients', href: '/clients' },
+    { icon: FolderOpenIcon, label: 'Projects', href: '/projects' },
+    { icon: ChatBubbleLeftIcon, label: 'Messages', href: '/messages' },
+    { icon: DocumentTextIcon, label: 'Invoices', href: '/invoices' },
+    { icon: Cog6ToothIcon, label: 'Settings', href: '/settings' },
   ];
 </script>
 
@@ -32,7 +25,7 @@
   <div class="sidebar-brand wave-in" style="animation-delay: 0ms;">
     {#if collapsed}
       <button onclick={toggleSidebar} class="toggle-btn" title="Expand sidebar">
-        <PanelLeftOpen class="size-5" />
+        <ChevronDoubleRightIcon class="size-5" />
       </button>
     {:else}
       <div class="brand-icon">V</div>
@@ -41,7 +34,7 @@
         <span class="brand-label">Admin Workspace</span>
       </div>
       <button onclick={toggleSidebar} class="toggle-btn toggle-btn-side" title="Collapse sidebar">
-        <PanelLeftClose class="size-5" />
+        <ChevronDoubleLeftIcon class="size-5" />
       </button>
     {/if}
   </div>
